@@ -1,14 +1,43 @@
 package com.example.springminiproject.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="eggs")
 public class Egg {
+    @Column
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column
     private String color;
+    @Column
     private String shape;
-    private Integer size;
+    @Column
+    private Double size;
 
     //---------------------------------------------CONSTRUCTORS
+
+    public Egg() {}
+
+    public Egg(Long id, String color, String shape, Double size) {
+        this.id = id;
+        this.color = color;
+        this.shape = shape;
+        this.size = size;
+    }
+
     //---------------------------------------------ONE EGG TO ONE CHICKEN
     //---------------------------------------------GETTERS AND SETTERS
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getColor() {
         return color;
@@ -26,18 +55,19 @@ public class Egg {
         this.shape = shape;
     }
 
-    public Integer getSize() {
+    public Double getSize() {
         return size;
     }
 
-    public void setSize(Integer size) {
+    public void setSize(Double size) {
         this.size = size;
     }
 
     @Override
     public String toString() {
         return "Egg{" +
-                "color='" + color + '\'' +
+                "id=" + id +
+                ", color='" + color + '\'' +
                 ", shape='" + shape + '\'' +
                 ", size=" + size +
                 '}';

@@ -1,15 +1,29 @@
 package com.example.springminiproject.model;
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="chickens")
 public class Chicken {
+    @Column
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column
     private String breed;
+    @Column
     private String description;
+    @Column
     private boolean isBroody;
+    @Column
     private Integer eggsPerYear;
 
     //---------------------------------------------CONSTRUCTORS
     public Chicken() {}
 
-    public Chicken(String breed, String description, boolean isBroody, Integer eggsPerYear) {
+    public Chicken(Long id, String breed, String description, boolean isBroody, Integer eggsPerYear) {
+        this.id = id;
         this.breed = breed;
         this.description = description;
         this.isBroody = isBroody;
@@ -18,6 +32,15 @@ public class Chicken {
     //---------------------------------------------ONE USER TO MANY CHICKENS
     //---------------------------------------------ONE CHICKEN TO ONE EGG
     //---------------------------------------------GETTERS/SETTERS
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getBreed() {
         return breed;
@@ -54,7 +77,8 @@ public class Chicken {
     @Override
     public String toString() {
         return "Chicken{" +
-                "breed='" + breed + '\'' +
+                "id=" + id +
+                ", breed='" + breed + '\'' +
                 ", description='" + description + '\'' +
                 ", isBroody=" + isBroody +
                 ", eggsPerYear=" + eggsPerYear +
