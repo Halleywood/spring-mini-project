@@ -31,7 +31,18 @@ public class Chicken {
     }
     //---------------------------------------------ONE USER TO MANY CHICKENS
     //---------------------------------------------ONE CHICKEN TO ONE EGG
-    //---------------------------------------------GETTERS/SETTERS
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="egg_id",referencedColumnName = "id")
+    private Egg eggType;
+
+    public Egg getEggType() {
+        return eggType;
+    }
+
+    public void setEggType(Egg eggType) {
+        this.eggType = eggType;
+    }
+//---------------------------------------------GETTERS/SETTERS
 
 
     public Long getId() {

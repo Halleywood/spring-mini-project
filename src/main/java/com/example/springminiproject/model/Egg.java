@@ -1,5 +1,7 @@
 package com.example.springminiproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -28,6 +30,18 @@ public class Egg {
     }
 
     //---------------------------------------------ONE EGG TO ONE CHICKEN
+    @JsonIgnore
+    @OneToOne(mappedBy = "eggType")
+    private Chicken chicken;
+
+    public Chicken getChicken() {
+        return chicken;
+    }
+
+    public void setChicken(Chicken chicken) {
+        this.chicken = chicken;
+    }
+
     //---------------------------------------------GETTERS AND SETTERS
 
 
