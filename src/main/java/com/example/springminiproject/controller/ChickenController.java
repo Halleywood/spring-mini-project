@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api") //http://localhost:9092/api
+//this class handles http requests, connects to service layer.
 public class ChickenController {
 
     @GetMapping(path="/test")//http://localhost:9092/api/test
