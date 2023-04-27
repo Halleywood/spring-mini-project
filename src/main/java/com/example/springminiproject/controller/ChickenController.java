@@ -26,10 +26,14 @@ public class ChickenController {
     }
     //GET ONE CHICKEN
     @GetMapping(path="/chickens/{chickenId}")
-    public void getOneChicken(){};
+    public Chicken getOneChicken(@PathVariable Long chickenId){
+        return chickenService.getOneChicken(chickenId);
+    }
     //CREATE CHICKEN
     @PostMapping(path="/chickens")
-    public void createChicken(){};
+    public Chicken createChicken(@RequestBody Chicken chickenObject){
+        return chickenService.createChicken(chickenObject);
+    }
     //UPDATE CHICKEN
     @PutMapping(path="/chickens/{chickenId}")
     public void updateChicken(){};
