@@ -1,21 +1,29 @@
 package com.example.springminiproject.controller;
 
+import com.example.springminiproject.model.Chicken;
+import com.example.springminiproject.service.ChickenService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api") //http://localhost:9092/api
 //this class handles http requests, connects to service layer.
 public class ChickenController {
 
-    @GetMapping(path="/test")//http://localhost:9092/api/test
-    public String testMethod(){
-        return "IT WORKS";
+    private ChickenService chickenService;
+    @Autowired
+    public void setChickenService(ChickenService chickenService) {
+        this.chickenService = chickenService;
     }
 
     //---------------------------------------------CHICKEN CRUD OPERATIONS
     //GET ALL CHICKENS
     @GetMapping(path="/chickens")
-    public void getChickens(){};
+    public List<Chicken> getChickens(){
+        return chickenService.getAllChickens();
+    }
     //GET ONE CHICKEN
     @GetMapping(path="/chickens/{chickenId}")
     public void getOneChicken(){};
