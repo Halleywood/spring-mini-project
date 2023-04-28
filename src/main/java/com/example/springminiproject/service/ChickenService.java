@@ -3,7 +3,9 @@ package com.example.springminiproject.service;
 import com.example.springminiproject.exception.InformationAlreadyExistsException;
 import com.example.springminiproject.exception.InformationNotFoundException;
 import com.example.springminiproject.model.Chicken;
+import com.example.springminiproject.model.Egg;
 import com.example.springminiproject.repository.ChickenRepository;
+import com.example.springminiproject.repository.EggRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +22,12 @@ public class ChickenService {
     @Autowired
     private ChickenRepository chickenRepository;
 
+    private EggRepository eggRepository;
+    @Autowired
+    public void setEggRepository(EggRepository eggRepository){
+        this.eggRepository = eggRepository;
+    }
+
     //--------------------------------------------------------------CRUD CHICKEN METHODS
     public List<Chicken> getAllChickens(){
         return chickenRepository.findAll();
@@ -34,7 +42,7 @@ public class ChickenService {
         }
     }
     public Chicken createChicken(Chicken chickenObject){
-        Optional<Chicken> chicken = Optional.of(chickenRepository.findByName(chickenObject.getBreed()));
+        Optional<Chicken> chicken = Optional.of(chickenRepository.findByBreed(chickenObject.getBreed()));
         if(chicken.isPresent()){
             throw new InformationAlreadyExistsException("This chicken breed already exists in the database, consider updating existing or create new chicken category");
         }
@@ -78,9 +86,33 @@ public class ChickenService {
         }
     }
     //--------------------------------------------------------------CRUD EGG METHODS
-    public void getAllEggs(){};
-    public void getOneEgg(){};
-    public void createEgg(){};
+
+    public List<Egg> getEggs(){
+        return eggRepository.findAll();
+    }
+    //-------------------------------------------------------------------------------------THIS METHOD NEEDS TO BE REWORKED! Chicken object is being saved as null???
+    public Egg getOneEgg(@PathVariable Long chickenId, @PathVariable Long eggId){
+        Chicken chicken = getOneChicken(chickenId);
+        Optional <Egg> egg = Optional.of(chicken.getEggType());
+        if(egg.isPresent()){
+            return chicken.getEggType();
+        }
+        else{
+            throw new InformationNotFoundException("No chickens with id of " + chickenId );
+        }
+    }
+    //is working but not saving chicken data...
+    public Egg createEgg(Long chickenId, Egg eggObject){
+        Optional<Chicken> chicken = chickenRepository.findById(chickenId);
+        if(chicken.isPresent()){
+            eggObject.setChicken(chicken.get());
+            eggRepository.save(eggObject);
+            return eggObject;
+        }
+       else{
+           throw new InformationNotFoundException("No chicken with id of " + chickenId + " exists in the database");
+        }
+    }
     public void updateEgg(){};
     public void deleteEgg(){}
 }

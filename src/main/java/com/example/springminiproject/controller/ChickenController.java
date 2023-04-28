@@ -1,6 +1,8 @@
 package com.example.springminiproject.controller;
 
 import com.example.springminiproject.model.Chicken;
+import com.example.springminiproject.model.Egg;
+import com.example.springminiproject.repository.EggRepository;
 import com.example.springminiproject.service.ChickenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ public class ChickenController {
     public void setChickenService(ChickenService chickenService) {
         this.chickenService = chickenService;
     }
+
 
     //---------------------------------------------CHICKEN CRUD OPERATIONS
     //GET ALL CHICKENS
@@ -47,17 +50,23 @@ public class ChickenController {
     //---------------------------------------------EGG CRUD OPERATIONS
     //GET ALL EGGS
     @GetMapping(path="/chickens/eggs")
-    public void getEggs(){};
+    public List<Egg> getEggs(){
+        return chickenService.getEggs();
+    }
     //GET ONE EGG
     @GetMapping(path="/chickens/{chickenId}/eggs/{eggId}")
-    public void getOneEgg(){};
+    public Egg getOneEgg(@PathVariable Long chickenId, @PathVariable Long eggId){
+        return chickenService.getOneEgg(chickenId, eggId);
+    }
     //CREATE EGG
     @PostMapping(path="/chickens/{chickenId}/eggs")
-    public void createEgg(){};
+    public Egg createEgg(@PathVariable Long chickenId, @RequestBody Egg eggObject){
+        return chickenService.createEgg(chickenId, eggObject);
+    }
     //UPDATE EGG
     @PutMapping(path="/chickens/{chickenId}/eggs/{eggId}")
-    public void updateEgg(){};
+    public void updateEgg(@PathVariable Long chickenId, @PathVariable Long eggId, @RequestBody Egg eggObject){}
     //DELETE EGG
     @DeleteMapping(path="/chickens/{chickenId}/eggs/{eggId}")
-    public void deleteEgg(){}
+    public void deleteEgg(@PathVariable Long chickenId, @PathVariable Long eggId){}
 }
