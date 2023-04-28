@@ -1,5 +1,7 @@
 package com.example.springminiproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -25,8 +27,18 @@ public class UserProfile {
         this.lastName = lastName;
         this.profileDescription = profileDescription;
     }
-    //..........................................................ONE USER TO ONE PROFILE
+    //.............................................................ONE USER TO ONE PROFILE
+    @OneToOne(mappedBy = "userProfile")
+    @JsonIgnore
+    private User user;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
     //..........................................................GETTERS/SETTERS/TO STRING
 
     public Long getId() {

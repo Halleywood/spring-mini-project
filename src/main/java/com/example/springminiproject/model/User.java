@@ -1,8 +1,11 @@
 package com.example.springminiproject.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -28,7 +31,29 @@ public class User {
         this.password = password;
     }
     //............................................................ONE USER TO ONE PROFILE
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_id", referencedColumnName = "id")
+    private UserProfile userProfile;
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
     //..........................................................ONE USER TO MANY CHICKENS
+    @OneToMany(mappedBy="user")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Chicken> chickenList;
+
+    public List<Chicken> getChickenList() {
+        return chickenList;
+    }
+
+    public void setChickenList(List<Chicken> chickenList) {
+        this.chickenList = chickenList;
+    }
     //..........................................................GETTERS/SETTERS/TO STRING
 
     public Long getId() {

@@ -1,6 +1,8 @@
 package com.example.springminiproject.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -30,6 +32,20 @@ public class Chicken {
         this.eggsPerYear = eggsPerYear;
     }
     //---------------------------------------------ONE USER TO MANY CHICKENS
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore //we will connect the user to the chicken, but do not display User info in chicken table!
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     //---------------------------------------------ONE CHICKEN TO ONE EGG
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="egg_id",referencedColumnName = "id")
