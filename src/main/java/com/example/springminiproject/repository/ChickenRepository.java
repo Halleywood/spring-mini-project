@@ -11,6 +11,6 @@ public interface ChickenRepository extends JpaRepository<Chicken, Long> {
 
     Chicken findByUserIdAndBreed(Long userId, String breed);
 
-    Chicken findByUserId(Long userId);
+    Chicken findByUserIdAndId(Long userId, Long chickenId);
 
 }

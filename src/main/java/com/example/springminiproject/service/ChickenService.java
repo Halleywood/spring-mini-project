@@ -69,7 +69,7 @@ public class ChickenService {
     //UPDATE EXISTING CHICKEN
     public Chicken updateChicken(Long chickenId, Chicken chickenObject){
         //check each part of chx object if not same then set new string
-        Optional<Chicken> chickenToUpdate = chickenRepository.findById(chickenId);
+        Optional<Chicken> chickenToUpdate = Optional.of(chickenRepository.findByUserIdAndId(getCurrentLoggedInUser().getId(), chickenId));
         if(chickenToUpdate.isPresent()){
             if(!chickenToUpdate.get().getBreed().equals(chickenObject.getBreed())){
                 chickenToUpdate.get().setBreed(chickenObject.getBreed());
@@ -93,7 +93,7 @@ public class ChickenService {
     }
     //DELETE A CHICKEN
     public Chicken deleteChicken(@PathVariable Long chickenId){
-        Optional<Chicken> chickenToDelete = chickenRepository.findById(chickenId);
+        Optional<Chicken> chickenToDelete = Optional.of(chickenRepository.findByUserIdAndId(getCurrentLoggedInUser().getId(), chickenId));
         if(chickenToDelete.isPresent()){
             chickenRepository.delete(chickenToDelete.get());
             return chickenToDelete.get();
