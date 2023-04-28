@@ -1,6 +1,9 @@
 package com.example.springminiproject.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import com.example.springminiproject.model.User;
+import com.example.springminiproject.security.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,14 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/auth/users")
 public class UserController {
 
-    @GetMapping(path="/register")
-    public String test(){
-        return "IT WORKS! ";
+    private UserService userService;
+    @Autowired
+    public void setUserService(UserService userService){this.userService = userService;}
+
+    @PostMapping(path="/register")
+    public User registerAUser(){
+        //will call service method to register a user.
     }
 
-    @GetMapping(path="/login")
-    public String test2(){
-        return "this also works!";
+    @PostMapping(path="/login")
+    public User loginAsUser(){
+        //will call a service method to login user.
     }
 
 }
