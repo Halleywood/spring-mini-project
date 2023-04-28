@@ -1,8 +1,10 @@
 package com.example.springminiproject.controller;
 
 import com.example.springminiproject.model.User;
-import com.example.springminiproject.security.UserService;
+import com.example.springminiproject.model.request.LoginRequest;
+import com.example.springminiproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +24,8 @@ public class UserController {
     }
 
     @PostMapping(path="/login")
-    public User loginAsUser(){
-        return userService.
+    public ResponseEntity<?> loginAsUser(@RequestBody LoginRequest loginRequest){
+        return userService.loginUser(loginRequest);
     }
 
 }

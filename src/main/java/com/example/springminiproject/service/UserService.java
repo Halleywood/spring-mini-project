@@ -1,8 +1,12 @@
-package com.example.springminiproject.security;
+package com.example.springminiproject.service;
 
 import com.example.springminiproject.exception.InformationAlreadyExistsException;
 import com.example.springminiproject.model.User;
+import com.example.springminiproject.model.request.LoginRequest;
+import com.example.springminiproject.model.response.LoginResponse;
 import com.example.springminiproject.repository.UserRepository;
+import com.example.springminiproject.security.JWTUtils;
+import com.example.springminiproject.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +26,15 @@ public class UserService {
     private MyUserDetails myUserDetails;
 
     @Autowired
-    public UserService(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder, JWTUtils jwtUtils, @Lazy AuthenticationManager authenticationManager, @Lazy MyUserDetails myUserDetails) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwUtils = jwtUtils;
+        this.authenticationManager = authenticationManager;
+        this.myUserDetails = myUserDetails;
     }
 
-    //-------------------------------------------------------------------------------------------------REGISTER A USER IN DB.
+    //---------------------------------------------------------------------------------------------REGISTER A USER IN DB.
     public User registerAUser(User userObject){
         if(!userRepository.existsByEmailAddress(userObject.getEmailAddress())){
             //then email is not already in system, so you can register them. Need to encrypt password then you can save them to DB.
@@ -38,7 +45,7 @@ public class UserService {
             throw new InformationAlreadyExistsException("email address "+ userObject.getEmailAddress()+" is already present in database");
         }
     }
-    //--------------------------------------------------------------------------------------------------LOGIN A USER
+    //------------------------------------------------------------------------------------------------------LOGIN A USER
     //responseEntity returns a key value pair, ? = Object
     public ResponseEntity<?> loginUser(LoginRequest loginRequest){
         try{
@@ -53,5 +60,8 @@ public class UserService {
             return ResponseEntity.ok(new LoginResponse("Error: username or password is incorrect"));
         }
     }
-
+    //---------------------------------------------------------------------FIND A USER BY EMAIL FOR USER DETAILS SERVICE
+    public User findUserByEmailAddress(String emailAddress){
+        return userRepository.findUserByEmailAddress(emailAddress);
+    }
 }
