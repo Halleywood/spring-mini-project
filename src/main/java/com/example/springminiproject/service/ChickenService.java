@@ -4,9 +4,12 @@ import com.example.springminiproject.exception.InformationAlreadyExistsException
 import com.example.springminiproject.exception.InformationNotFoundException;
 import com.example.springminiproject.model.Chicken;
 import com.example.springminiproject.model.Egg;
+import com.example.springminiproject.model.User;
+import com.example.springminiproject.security.MyUserDetails;
 import com.example.springminiproject.repository.ChickenRepository;
 import com.example.springminiproject.repository.EggRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -26,6 +29,11 @@ public class ChickenService {
     @Autowired
     public void setEggRepository(EggRepository eggRepository){
         this.eggRepository = eggRepository;
+    }
+//--------------------------------------------------------------------------------------------GET USER INFO FROM LOG IN
+    public static User getCurrentLoggedInUser() {
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetails.getUser();
     }
 
     //--------------------------------------------------------------------------------------------CRUD CHICKEN METHODS

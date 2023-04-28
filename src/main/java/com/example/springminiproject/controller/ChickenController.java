@@ -74,5 +74,9 @@ public class ChickenController {
         return chickenService.deleteEgg(chickenId, eggId);
     }
     //------------------------------------------------------------------------------------GET ALL USER's LIKED CHICKENS?
-    //------------------------------------------------------------------------------------GET ALL USERNAMES THAT LIKE A CHICKEN BY ID? 
+    @GetMapping(path="/chickens/likes")
+    public List<Chicken> allLikedChickensOfUser(){
+        return UserController.
+    }
+    //------------------------------------------------------------------------------------GET ALL USERNAMES THAT LIKE A CHICKEN BY ID?
 }
