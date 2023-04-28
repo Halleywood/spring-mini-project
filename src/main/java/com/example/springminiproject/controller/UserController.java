@@ -23,7 +23,7 @@ public class UserController {
 
     @PostMapping(path="/login")
     public User loginAsUser(){
-        //will call a service method to login user.
+        return userService.
     }
 
 }

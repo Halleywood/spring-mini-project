@@ -5,6 +5,11 @@ import com.example.springminiproject.model.User;
 import com.example.springminiproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +17,9 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
+    private JWTUtils jwUtils;
+    private AuthenticationManager authenticationManager;
+    private MyUserDetails myUserDetails;
 
     @Autowired
     public UserService(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
@@ -19,8 +27,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    //will need two methods that the controller will call too...that talk to userRepo and get user data using JPA.
-
+    //-------------------------------------------------------------------------------------------------REGISTER A USER IN DB.
     public User registerAUser(User userObject){
         if(!userRepository.existsByEmailAddress(userObject.getEmailAddress())){
             //then email is not already in system, so you can register them. Need to encrypt password then you can save them to DB.
@@ -31,4 +38,20 @@ public class UserService {
             throw new InformationAlreadyExistsException("email address "+ userObject.getEmailAddress()+" is already present in database");
         }
     }
+    //--------------------------------------------------------------------------------------------------LOGIN A USER
+    //responseEntity returns a key value pair, ? = Object
+    public ResponseEntity<?> loginUser(LoginRequest loginRequest){
+        try{
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            myUserDetails = (MyUserDetails) authentication.getPrincipal();
+            final String JWT = jwUtils.generateJwtToken(myUserDetails);
+            return ResponseEntity.ok(new LoginResponse(JWT));
+        }
+        catch(Exception e){
+            return ResponseEntity.ok(new LoginResponse("Error: username or password is incorrect"));
+        }
+    }
+
 }
