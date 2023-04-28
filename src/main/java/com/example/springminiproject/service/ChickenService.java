@@ -182,4 +182,15 @@ public class ChickenService {
             throw new InformationNotFoundException("No user exists with this id");
         }
     }
+
+    //GET ALL USERNAMES THAT LIKE A CHICKEN
+    public List<User> getAllUsersThatLikeAChicken(Long chickenId){
+        Chicken chicken = getOneChicken(chickenId);
+        if(chicken != null){
+            return chicken.getLikes();
+        }
+        else{
+            throw new InformationNotFoundException("no chicken with that id exists in database");
+        }
+    }
 }

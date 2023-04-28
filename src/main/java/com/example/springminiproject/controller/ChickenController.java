@@ -1,8 +1,7 @@
 package com.example.springminiproject.controller;
-
+import com.example.springminiproject.model.User;
 import com.example.springminiproject.model.Chicken;
 import com.example.springminiproject.model.Egg;
-import com.example.springminiproject.repository.EggRepository;
 import com.example.springminiproject.service.ChickenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -76,7 +75,11 @@ public class ChickenController {
     //------------------------------------------------------------------------------------GET ALL USER's LIKED CHICKENS?
     @GetMapping(path="/chickens/likes")
     public List<Chicken> allLikedChickensOfUser(){
-        return chickenService.
+        return chickenService.getAllChickensAUserLikes();
     }
     //------------------------------------------------------------------------------------GET ALL USERNAMES THAT LIKE A CHICKEN BY ID?
+    @GetMapping(path="/chickens/{chickenId}/likes")
+    public List<User> allUsersThatLikeAChicken(@PathVariable Long chickenId){
+        return chickenService.getAllUsersThatLikeAChicken(chickenId);
+    }
 }
