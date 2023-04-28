@@ -21,7 +21,7 @@ public class ChickenController {
     }
 
 
-    //---------------------------------------------CHICKEN CRUD OPERATIONS
+    //-------------------------------------------------------------------------------CHICKEN CRUD OPERATIONS
     //GET ALL CHICKENS
     @GetMapping(path="/chickens")
     public List<Chicken> getChickens(){
@@ -47,7 +47,7 @@ public class ChickenController {
     public Chicken deleteChicken(@PathVariable Long chickenId){
         return chickenService.deleteChicken(chickenId);
     }
-    //---------------------------------------------EGG CRUD OPERATIONS
+    //------------------------------------------------------------------------------------EGG CRUD OPERATIONS
     //GET ALL EGGS
     @GetMapping(path="/chickens/eggs")
     public List<Egg> getEggs(){
@@ -65,8 +65,12 @@ public class ChickenController {
     }
     //UPDATE EGG
     @PutMapping(path="/chickens/{chickenId}/eggs/{eggId}")
-    public void updateEgg(@PathVariable Long chickenId, @PathVariable Long eggId, @RequestBody Egg eggObject){}
+    public Egg updateEgg(@PathVariable Long chickenId, @PathVariable Long eggId, @RequestBody Egg eggObject){
+        return chickenService.updateEgg(chickenId, eggId, eggObject);
+    }
     //DELETE EGG
     @DeleteMapping(path="/chickens/{chickenId}/eggs/{eggId}")
-    public void deleteEgg(@PathVariable Long chickenId, @PathVariable Long eggId){}
+    public Egg deleteEgg(@PathVariable Long chickenId, @PathVariable Long eggId){
+        return chickenService.deleteEgg(chickenId, eggId);
+    }
 }
