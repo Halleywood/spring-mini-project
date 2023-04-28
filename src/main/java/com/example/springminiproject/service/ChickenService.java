@@ -147,5 +147,20 @@ public class ChickenService {
         }
     }
     //DELETE AN EGG OF A SPECIFIC CHICKEN
-    public void deleteEgg(){}
+    public Egg deleteEgg(Long chickenId, Long eggId){
+        Chicken chicken = getOneChicken(chickenId);
+        if(chicken != null){
+            Optional <Egg> egg = Optional.of(eggRepository.findByChickenIdAndId(chickenId,eggId));
+            if(egg.isPresent()){
+                eggRepository.delete(egg.get());
+                return egg.get();
+            }
+            else{
+                throw new InformationNotFoundException("an egg with id of " + eggId + "does not exist in the database, unable to delete!");
+            }
+        }
+        else{
+            throw new InformationNotFoundException("a chicken with id of "+ chickenId+ " does not exist in the database, unable to delete");
+        }
+    }
 }
