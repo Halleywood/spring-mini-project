@@ -4,6 +4,7 @@ package com.example.springminiproject.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="chickens")
@@ -31,19 +32,18 @@ public class Chicken {
         this.isBroody = isBroody;
         this.eggsPerYear = eggsPerYear;
     }
-    //---------------------------------------------ONE USER TO MANY CHICKENS
+    //---------------------------------------------MANY USERS CAN LIKE MANY CHICKENS
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToMany(mappedBy = "chickenLikes")
     @JsonIgnore //we will connect the user to the chicken, but do not display User info in chicken table!
-    private User user;
+    List<User> likes;
 
-    public User getUser() {
-        return user;
+    public List<User> getLikes() {
+        return likes;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setLikes(List<User> likes) {
+        this.likes = likes;
     }
 
     //---------------------------------------------ONE CHICKEN TO ONE EGG

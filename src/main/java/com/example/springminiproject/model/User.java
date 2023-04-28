@@ -42,19 +42,24 @@ public class User {
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
-    //..........................................................ONE USER TO MANY CHICKENS
-    @OneToMany(mappedBy="user")
+    //..........................................................MANY USERS CAN LIKE MANY CHICKENS
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name ="chicken_likes",
+            joinColumns=
+            @JoinColumn(name="user_id"),
+            inverseJoinColumns=
+            @JoinColumn(name="chicken_id"))
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Chicken> chickenList;
+    private List<Chicken> chickenLikes;
 
-    public List<Chicken> getChickenList() {
-        return chickenList;
+    public List<Chicken> getChickenLikes() {
+        return chickenLikes;
     }
 
-    public void setChickenList(List<Chicken> chickenList) {
-        this.chickenList = chickenList;
+    public void setChickenLikes(List<Chicken> chickenLikes) {
+        this.chickenLikes = chickenLikes;
     }
-    //..........................................................GETTERS/SETTERS/TO STRING
+//..........................................................GETTERS/SETTERS/TO STRING
 
     public Long getId() {
         return id;
