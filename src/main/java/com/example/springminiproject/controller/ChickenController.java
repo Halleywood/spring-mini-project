@@ -41,7 +41,7 @@ public class ChickenController {
     }
     //DELETE CHICKEN
     @DeleteMapping(path="/chickens/{chickenId}")
-    public void deleteChicken(@PathVariable Long chickenId){
+    public Chicken deleteChicken(@PathVariable Long chickenId){
         return chickenService.deleteChicken(chickenId);
     }
     //---------------------------------------------EGG CRUD OPERATIONS

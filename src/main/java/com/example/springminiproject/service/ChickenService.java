@@ -6,9 +6,11 @@ import com.example.springminiproject.model.Chicken;
 import com.example.springminiproject.repository.ChickenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Collection;
+
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -42,7 +44,7 @@ public class ChickenService {
 
     }
     public Chicken updateChicken(Long chickenId, Chicken chickenObject){
-        //check eat string if not same then set new string
+        //check each part of chx object if not same then set new string
         Optional<Chicken> chickenToUpdate = chickenRepository.findById(chickenId);
         if(chickenToUpdate.isPresent()){
             if(!chickenToUpdate.get().getBreed().equals(chickenObject.getBreed())){
@@ -51,22 +53,30 @@ public class ChickenService {
             if(!chickenToUpdate.get().getDescription().equals(chickenObject.getDescription())){
                 chickenToUpdate.get().setDescription(chickenObject.getDescription());
             }
-            if(chickenToUpdate.get().getEggsPerYear() != (chickenObject.getEggsPerYear())) {
+            if(!Objects.equals(chickenToUpdate.get().getEggsPerYear(), chickenObject.getEggsPerYear())) {
                 chickenToUpdate.get().setEggsPerYear(chickenObject.getEggsPerYear());
             }
             if(chickenToUpdate.get().isBroody() != chickenObject.isBroody()){
                 chickenToUpdate.get().setBroody(chickenObject.isBroody());
             }
-            //save chickentoupdate in db w/ repository and return
+            //save chickenToUpdate in db w/ repository and return
             chickenRepository.save(chickenObject);
             return chickenToUpdate.get();
-
         }
         else{
             throw new InformationNotFoundException("a chicken category with id of "+ chickenId + "does not exist in the database");
         }
     }
-    public void deleteChicken(){}
+    public Chicken deleteChicken(@PathVariable Long chickenId){
+        Optional<Chicken> chickenToDelete = chickenRepository.findById(chickenId);
+        if(chickenToDelete.isPresent()){
+            chickenRepository.delete(chickenToDelete.get());
+            return chickenToDelete.get();
+        }
+        else{
+            throw new InformationNotFoundException("No chicken with id of " + chickenId + " exists in the database!");
+        }
+    }
     //--------------------------------------------------------------CRUD EGG METHODS
     public void getAllEggs(){};
     public void getOneEgg(){};
