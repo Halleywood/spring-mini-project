@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api") //http://localhost:9092/api
-//this class handles http requests, connects to service layer.
+//this class handles http requests, calls service layer to handle the busisness logic.
 public class ChickenController {
 
     private ChickenService chickenService;
@@ -36,10 +36,14 @@ public class ChickenController {
     }
     //UPDATE CHICKEN
     @PutMapping(path="/chickens/{chickenId}")
-    public void updateChicken(){};
+    public Chicken updateChicken(@PathVariable Long chickenId, @RequestBody Chicken chicken){
+        return chickenService.updateChicken(chickenId, chicken);
+    }
     //DELETE CHICKEN
     @DeleteMapping(path="/chickens/{chickenId}")
-    public void deleteChicken(){}
+    public void deleteChicken(@PathVariable Long chickenId){
+        return chickenService.deleteChicken(chickenId);
+    }
     //---------------------------------------------EGG CRUD OPERATIONS
     //GET ALL EGGS
     @GetMapping(path="/chickens/eggs")
