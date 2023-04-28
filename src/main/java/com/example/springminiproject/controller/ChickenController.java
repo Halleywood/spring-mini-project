@@ -73,4 +73,6 @@ public class ChickenController {
     public Egg deleteEgg(@PathVariable Long chickenId, @PathVariable Long eggId){
         return chickenService.deleteEgg(chickenId, eggId);
     }
+    //------------------------------------------------------------------------------------GET ALL USER's LIKED CHICKENS?
+    //------------------------------------------------------------------------------------GET ALL USERNAMES THAT LIKE A CHICKEN BY ID? 
 }
