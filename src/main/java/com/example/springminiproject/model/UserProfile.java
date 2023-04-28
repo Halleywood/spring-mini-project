@@ -10,7 +10,7 @@ public class UserProfile {
     @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     @Column
     private String firstName;
     @Column
@@ -22,7 +22,7 @@ public class UserProfile {
     public UserProfile() {}
 
     public UserProfile(Long id, String firstName, String lastName, String profileDescription) {
-        Id = id;
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.profileDescription = profileDescription;
@@ -42,11 +42,11 @@ public class UserProfile {
     //..........................................................GETTERS/SETTERS/TO STRING
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        id = id;
     }
 
     public String getFirstName() {
@@ -76,7 +76,7 @@ public class UserProfile {
     @Override
     public String toString() {
         return "UserProfile{" +
-                "Id=" + Id +
+                "Id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", profileDescription='" + profileDescription + '\'' +
