@@ -88,9 +88,10 @@ public class ChickenService {
     //--------------------------------------------------------------CRUD EGG METHODS
 
     public List<Egg> getEggs(){
+
         return eggRepository.findAll();
     }
-    //-------------------------------------------------------------------------------------THIS METHOD NEEDS TO BE REWORKED! Chicken object is being saved as null???
+
     public Egg getOneEgg(@PathVariable Long chickenId, @PathVariable Long eggId){
         Chicken chicken = getOneChicken(chickenId);
         Optional <Egg> egg = Optional.of(chicken.getEggType());
@@ -101,11 +102,12 @@ public class ChickenService {
             throw new InformationNotFoundException("No chickens with id of " + chickenId );
         }
     }
-    //is working but not saving chicken data...
+
     public Egg createEgg(Long chickenId, Egg eggObject){
         Optional<Chicken> chicken = chickenRepository.findById(chickenId);
         if(chicken.isPresent()){
             eggObject.setChicken(chicken.get());
+            chicken.get().setEggType(eggObject);
             eggRepository.save(eggObject);
             return eggObject;
         }
