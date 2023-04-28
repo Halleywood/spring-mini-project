@@ -42,6 +42,19 @@ public class User {
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
+    //............................................................ONE USER CAN CREATE ONE CHICKEN
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id", referencedColumnName = "id")
+    private Chicken chicken;
+
+    public Chicken getChicken() {
+        return chicken;
+    }
+
+    public void setChicken(Chicken chicken) {
+        this.chicken = chicken;
+    }
+
     //..........................................................MANY USERS CAN LIKE MANY CHICKENS
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name ="chicken_likes",

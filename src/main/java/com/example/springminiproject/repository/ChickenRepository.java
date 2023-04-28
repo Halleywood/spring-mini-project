@@ -9,4 +9,8 @@ public interface ChickenRepository extends JpaRepository<Chicken, Long> {
     //will need more custom methods when user and security built into app.
     Chicken findByBreed(String breed);
 
+    Chicken findByUserIdAndBreed(Long userId, String breed);
+
+    Chicken findByUserId(Long userId);
+
 }

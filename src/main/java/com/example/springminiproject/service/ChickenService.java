@@ -39,10 +39,12 @@ public class ChickenService {
     //--------------------------------------------------------------------------------------------CRUD CHICKEN METHODS
     //GET ALL CHICKENS
     public List<Chicken> getAllChickens(){
+        //You dont need to be matching user to see all chickens
         return chickenRepository.findAll();
-    };
+    }
     //GET ONE CHICKEN
     public Chicken getOneChicken(Long chickenId){
+        //you dont need to be a matching user to see a chicken
         Optional<Chicken> chicken =  chickenRepository.findById(chickenId);
         if(chicken.isPresent()){
             return chicken.get();
@@ -53,11 +55,13 @@ public class ChickenService {
     }
     //CREATE A CHICKEN
     public Chicken createChicken(Chicken chickenObject){
-        Optional<Chicken> chicken = Optional.of(chickenRepository.findByBreed(chickenObject.getBreed()));
+        //the chicken you create is matched to you so only you can edit and delete it!
+        Optional<Chicken> chicken = Optional.of(chickenRepository.findByUserIdAndBreed(ChickenService.getCurrentLoggedInUser().getId(), chickenObject.getBreed()));
         if(chicken.isPresent()){
             throw new InformationAlreadyExistsException("This chicken breed already exists in the database, consider updating existing or create new chicken category");
         }
         else{
+            chickenObject.setUser(getCurrentLoggedInUser());
             return chickenRepository.save(chickenObject);
         }
 

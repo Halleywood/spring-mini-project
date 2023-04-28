@@ -45,6 +45,18 @@ public class Chicken {
     public void setLikes(List<User> likes) {
         this.likes = likes;
     }
+    //---------------------------------------------One USERS CAN CREATE ONE CHICKEN
+    @OneToOne(mappedBy="chicken")
+    @JsonIgnore
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     //---------------------------------------------ONE CHICKEN TO ONE EGG
     @OneToOne(cascade = CascadeType.ALL)
