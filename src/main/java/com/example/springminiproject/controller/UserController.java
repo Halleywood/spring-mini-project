@@ -4,6 +4,7 @@ import com.example.springminiproject.model.User;
 import com.example.springminiproject.security.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,8 +17,8 @@ public class UserController {
     public void setUserService(UserService userService){this.userService = userService;}
 
     @PostMapping(path="/register")
-    public User registerAUser(){
-        //will call service method to register a user.
+    public User registerAUser(@RequestBody User userObject){
+        return userService.registerAUser(userObject);
     }
 
     @PostMapping(path="/login")
