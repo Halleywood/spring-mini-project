@@ -193,4 +193,11 @@ public class ChickenService {
             throw new InformationNotFoundException("no chicken with that id exists in database");
         }
     }
+
+    //USER LIKES A CHICKEN, ADDS THEIR USERNAME TO THE CHICKENS LIST OF PEOPLE THAT LIKE THEM
+    public void likeAChicken(Long chickenId){
+        Chicken chicken = getOneChicken(chickenId);
+        chicken.getLikes().add(getCurrentLoggedInUser());
+        getCurrentLoggedInUser().getChickenLikes().add(chicken);
+    }
 }

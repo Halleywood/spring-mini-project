@@ -19,7 +19,6 @@ public class ChickenController {
         this.chickenService = chickenService;
     }
 
-
     //-------------------------------------------------------------------------------CHICKEN CRUD OPERATIONS
     //GET ALL CHICKENS
     @GetMapping(path="/chickens")
@@ -81,5 +80,13 @@ public class ChickenController {
     @GetMapping(path="/chickens/{chickenId}/likes")
     public List<User> allUsersThatLikeAChicken(@PathVariable Long chickenId){
         return chickenService.getAllUsersThatLikeAChicken(chickenId);
+    }
+    //------------------------------------------------------------------------------------A USER CAN LIKE A CHICKEN?
+    //adds chicken by id to their list of likedChickens
+    //adds their username to chickens list of people who like them???
+    @GetMapping(path="/chickens/like/{chickenId}")
+    public String likeChiken(@PathVariable Long chickenId){
+        chickenService.likeAChicken(chickenId);
+        return "you liked the chicken with an id of "+ chickenId;
     }
 }
