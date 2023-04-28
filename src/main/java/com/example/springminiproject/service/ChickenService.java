@@ -171,4 +171,15 @@ public class ChickenService {
             throw new InformationNotFoundException("a chicken with id of "+ chickenId+ " does not exist in the database, unable to delete");
         }
     }
+
+    //GET ALL CHICKENS A USER LIKES! MANY TO MANY
+    public List<Chicken> getAllChickensAUserLikes(){
+        Optional <User> user = Optional.of(getCurrentLoggedInUser());
+        if(user.isPresent()){
+            return user.get().getChickenLikes();
+        }
+        else{
+            throw new InformationNotFoundException("No user exists with this id");
+        }
+    }
 }

@@ -76,7 +76,7 @@ public class ChickenController {
     //------------------------------------------------------------------------------------GET ALL USER's LIKED CHICKENS?
     @GetMapping(path="/chickens/likes")
     public List<Chicken> allLikedChickensOfUser(){
-        return UserController.
+        return chickenService.
     }
     //------------------------------------------------------------------------------------GET ALL USERNAMES THAT LIKE A CHICKEN BY ID?
 }
