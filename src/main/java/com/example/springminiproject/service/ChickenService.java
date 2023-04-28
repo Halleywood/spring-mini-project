@@ -28,10 +28,12 @@ public class ChickenService {
         this.eggRepository = eggRepository;
     }
 
-    //--------------------------------------------------------------CRUD CHICKEN METHODS
+    //--------------------------------------------------------------------------------------------CRUD CHICKEN METHODS
+    //GET ALL CHICKENS
     public List<Chicken> getAllChickens(){
         return chickenRepository.findAll();
     };
+    //GET ONE CHICKEN
     public Chicken getOneChicken(Long chickenId){
         Optional<Chicken> chicken =  chickenRepository.findById(chickenId);
         if(chicken.isPresent()){
@@ -41,6 +43,7 @@ public class ChickenService {
             throw new InformationNotFoundException("No chicken category with id of "+ chickenId + " exists in database");
         }
     }
+    //CREATE A CHICKEN
     public Chicken createChicken(Chicken chickenObject){
         Optional<Chicken> chicken = Optional.of(chickenRepository.findByBreed(chickenObject.getBreed()));
         if(chicken.isPresent()){
@@ -51,6 +54,7 @@ public class ChickenService {
         }
 
     }
+    //UPDATE EXISTING CHICKEN
     public Chicken updateChicken(Long chickenId, Chicken chickenObject){
         //check each part of chx object if not same then set new string
         Optional<Chicken> chickenToUpdate = chickenRepository.findById(chickenId);
@@ -75,6 +79,7 @@ public class ChickenService {
             throw new InformationNotFoundException("a chicken category with id of "+ chickenId + "does not exist in the database");
         }
     }
+    //DELETE A CHICKEN
     public Chicken deleteChicken(@PathVariable Long chickenId){
         Optional<Chicken> chickenToDelete = chickenRepository.findById(chickenId);
         if(chickenToDelete.isPresent()){
@@ -85,13 +90,13 @@ public class ChickenService {
             throw new InformationNotFoundException("No chicken with id of " + chickenId + " exists in the database!");
         }
     }
-    //--------------------------------------------------------------CRUD EGG METHODS
-
+    //-----------------------------------------------------------------------------------------------CRUD EGG METHODS
+    //GET ALL EGGS
     public List<Egg> getEggs(){
 
         return eggRepository.findAll();
     }
-
+    //GET EGG OF SPECIFIC CHICKEN
     public Egg getOneEgg(@PathVariable Long chickenId, @PathVariable Long eggId){
         Chicken chicken = getOneChicken(chickenId);
         Optional <Egg> egg = Optional.of(chicken.getEggType());
@@ -102,7 +107,7 @@ public class ChickenService {
             throw new InformationNotFoundException("No chickens with id of " + chickenId );
         }
     }
-
+    //CREATE AN EGG
     public Egg createEgg(Long chickenId, Egg eggObject){
         Optional<Chicken> chicken = chickenRepository.findById(chickenId);
         if(chicken.isPresent()){
@@ -115,6 +120,32 @@ public class ChickenService {
            throw new InformationNotFoundException("No chicken with id of " + chickenId + " exists in the database");
         }
     }
-    public void updateEgg(){};
+    //UPDATE AN EGG OF A SPECIFIC CHICKEN
+    public Egg updateEgg(Long chickenId, Long eggId, Egg eggObject){
+        Chicken chicken = getOneChicken(chickenId);
+        if(chicken != null){
+            Optional <Egg> egg = Optional.of(eggRepository.findByChickenIdAndId(chickenId, eggId));
+            if(egg.isPresent()){
+                if(!egg.get().getColor().equals(eggObject.getColor())){
+                    egg.get().setColor(eggObject.getColor());
+                }
+                if(!egg.get().getSize().equals(eggObject.getSize())){
+                    egg.get().setSize(eggObject.getSize());
+                }
+                if(!egg.get().getShape().equals(eggObject.getShape())){
+                    egg.get().setShape(eggObject.getShape());
+                }
+                eggRepository.save(egg.get());
+                return egg.get();
+            }
+            else{
+                throw new InformationNotFoundException("No egg with id of "+ eggId+" exists for this chicken");
+            }
+        }
+        else {
+            throw new InformationNotFoundException("No chicken with an id of " + chickenId + " in the database");
+        }
+    }
+    //DELETE AN EGG OF A SPECIFIC CHICKEN
     public void deleteEgg(){}
 }
