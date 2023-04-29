@@ -87,6 +87,6 @@ public class ChickenController {
     @GetMapping(path="/chickens/like/{chickenId}")
     public String likeChicken(@PathVariable Long chickenId){
         chickenService.likeAChicken(chickenId);
-        return "you liked the chicken with an id of "+ chickenId;
+        return "you liked the " + chickenService.getOneChicken(chickenId).getBreed();
     }
 }
