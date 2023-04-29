@@ -35,18 +35,18 @@ public class Chicken {
     //---------------------------------------------MANY USERS CAN LIKE MANY CHICKENS
 
     @ManyToMany(mappedBy = "chickenLikes")
-    @JsonIgnore //we will connect the user to the chicken, but do not display User info in chicken table!
     List<User> likes;
 
     public List<User> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<User> likes) {
-        this.likes = likes;
+    public void setLikes(User user) {
+        this.likes.add(user);
     }
-    //---------------------------------------------One USERS CAN CREATE ONE CHICKEN
-    @OneToOne(mappedBy="chicken")
+    //---------------------------------------------One USERS CAN CREATE MANY CHICKENS
+    @ManyToOne
+    @JoinColumn(name="user_id")
     @JsonIgnore
     private User user;
 

@@ -1,5 +1,4 @@
 package com.example.springminiproject.repository;
-
 import com.example.springminiproject.model.Chicken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -7,8 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 //can create custom methods or use JPA built in methods to retrieve data from DB.
 public interface ChickenRepository extends JpaRepository<Chicken, Long> {
     //will need more custom methods when user and security built into app.
-    Chicken findByBreed(String breed);
-
     Chicken findByUserIdAndBreed(Long userId, String breed);
 
     Chicken findByUserIdAndId(Long userId, Long chickenId);

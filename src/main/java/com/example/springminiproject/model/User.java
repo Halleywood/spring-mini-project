@@ -1,5 +1,6 @@
 package com.example.springminiproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -42,26 +43,26 @@ public class User {
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
-    //............................................................ONE USER CAN CREATE ONE CHICKEN
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id", referencedColumnName = "id")
-    private Chicken chicken;
+    //............................................................ONE USER CAN CREATE MANY CHICKENS
+    @OneToMany(mappedBy="user")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Chicken> chickens;
 
-    public Chicken getChicken() {
-        return chicken;
+    public List<Chicken> getChickens() {
+        return chickens;
     }
 
-    public void setChicken(Chicken chicken) {
-        this.chicken = chicken;
+    public void setChickens(List<Chicken> chickens) {
+        this.chickens = chickens;
     }
 
     //..........................................................MANY USERS CAN LIKE MANY CHICKENS
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name ="chicken_likes",
             joinColumns=
-            @JoinColumn(name="user_id"),
+            @JoinColumn(name="chicken_id"),
             inverseJoinColumns=
-            @JoinColumn(name="chicken_id"))
+            @JoinColumn(name="user_id"))
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Chicken> chickenLikes;
 
@@ -69,8 +70,8 @@ public class User {
         return chickenLikes;
     }
 
-    public void setChickenLikes(List<Chicken> chickenLikes) {
-        this.chickenLikes = chickenLikes;
+    public void setChickenLikes(Chicken chicken) {
+        this.chickenLikes.add(chicken);
     }
 //..........................................................GETTERS/SETTERS/TO STRING
 

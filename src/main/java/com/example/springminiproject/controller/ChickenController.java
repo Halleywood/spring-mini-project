@@ -72,20 +72,20 @@ public class ChickenController {
         return chickenService.deleteEgg(chickenId, eggId);
     }
     //------------------------------------------------------------------------------------GET ALL USER's LIKED CHICKENS?
-    @GetMapping(path="/chickens/likes")
-    public List<Chicken> allLikedChickensOfUser(){
-        return chickenService.getAllChickensAUserLikes();
-    }
-    //------------------------------------------------------------------------------------GET ALL USERNAMES THAT LIKE A CHICKEN BY ID?
+//    @GetMapping(path="/user/likes")
+//    public List<Chicken> allLikedChickensOfUser(){
+//        return chickenService.getAllUserLikedChickens();
+//
+//    //------------------------------------------------------------------------------------GET ALL USERNAMES THAT LIKE A CHICKEN BY ID?
     @GetMapping(path="/chickens/{chickenId}/likes")
-    public List<User> allUsersThatLikeAChicken(@PathVariable Long chickenId){
-        return chickenService.getAllUsersThatLikeAChicken(chickenId);
+    public Integer chickenTotalLikes(@PathVariable Long chickenId){
+        return chickenService.getChickenTotalLikes(chickenId);
     }
-    //------------------------------------------------------------------------------------A USER CAN LIKE A CHICKEN?
+//    //------------------------------------------------------------------------------------A USER CAN LIKE A CHICKEN?
     //adds chicken by id to their list of likedChickens
     //adds their username to chickens list of people who like them???
     @GetMapping(path="/chickens/like/{chickenId}")
-    public String likeChiken(@PathVariable Long chickenId){
+    public String likeChicken(@PathVariable Long chickenId){
         chickenService.likeAChicken(chickenId);
         return "you liked the chicken with an id of "+ chickenId;
     }

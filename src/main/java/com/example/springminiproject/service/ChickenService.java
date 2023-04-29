@@ -56,8 +56,8 @@ public class ChickenService {
     //CREATE A CHICKEN
     public Chicken createChicken(Chicken chickenObject){
         //the chicken you create is matched to you so only you can edit and delete it!
-        Optional<Chicken> chicken = Optional.of(chickenRepository.findByUserIdAndBreed(ChickenService.getCurrentLoggedInUser().getId(), chickenObject.getBreed()));
-        if(chicken.isPresent()){
+        Chicken chicken = chickenRepository.findByUserIdAndBreed(getCurrentLoggedInUser().getId(), chickenObject.getBreed());
+        if(chicken != null){
             throw new InformationAlreadyExistsException("This chicken breed already exists in the database, consider updating existing or create new chicken category");
         }
         else{
@@ -69,7 +69,8 @@ public class ChickenService {
     //UPDATE EXISTING CHICKEN
     public Chicken updateChicken(Long chickenId, Chicken chickenObject){
         //check each part of chx object if not same then set new string
-        Optional<Chicken> chickenToUpdate = Optional.of(chickenRepository.findByUserIdAndId(getCurrentLoggedInUser().getId(), chickenId));
+        //ONLY USER WHO CREATED CHICKEN CAN UPDATE so we first find the Chicken by userId AND chickenId. If it is null the user did not create it.
+        Optional <Chicken> chickenToUpdate = Optional.of(chickenRepository.findByUserIdAndId(getCurrentLoggedInUser().getId(), chickenId));
         if(chickenToUpdate.isPresent()){
             if(!chickenToUpdate.get().getBreed().equals(chickenObject.getBreed())){
                 chickenToUpdate.get().setBreed(chickenObject.getBreed());
@@ -84,7 +85,7 @@ public class ChickenService {
                 chickenToUpdate.get().setBroody(chickenObject.isBroody());
             }
             //save chickenToUpdate in db w/ repository and return
-            chickenRepository.save(chickenObject);
+            chickenRepository.save(chickenToUpdate.get());
             return chickenToUpdate.get();
         }
         else{
@@ -105,11 +106,12 @@ public class ChickenService {
     //-----------------------------------------------------------------------------------------------CRUD EGG METHODS
     //GET ALL EGGS
     public List<Egg> getEggs(){
-
+        //you should be able to see all eggs not just ones you created
         return eggRepository.findAll();
     }
     //GET EGG OF SPECIFIC CHICKEN
     public Egg getOneEgg(@PathVariable Long chickenId, @PathVariable Long eggId){
+        //you don't have to be user who created egg/chicken to see a specific egg
         Chicken chicken = getOneChicken(chickenId);
         Optional <Egg> egg = Optional.of(chicken.getEggType());
         if(egg.isPresent()){
@@ -120,8 +122,9 @@ public class ChickenService {
         }
     }
     //CREATE AN EGG
+    //you do need to be the same user who created the chicken to create an egg for it.
     public Egg createEgg(Long chickenId, Egg eggObject){
-        Optional<Chicken> chicken = chickenRepository.findById(chickenId);
+        Optional <Chicken> chicken = Optional.of(chickenRepository.findByUserIdAndId(getCurrentLoggedInUser().getId(), chickenId));
         if(chicken.isPresent()){
             eggObject.setChicken(chicken.get());
             chicken.get().setEggType(eggObject);
@@ -129,14 +132,14 @@ public class ChickenService {
             return eggObject;
         }
        else{
-           throw new InformationNotFoundException("No chicken with id of " + chickenId + " exists in the database");
+           throw new InformationNotFoundException("you must be the user who created the chicken to create an egg");
         }
     }
     //UPDATE AN EGG OF A SPECIFIC CHICKEN
     public Egg updateEgg(Long chickenId, Long eggId, Egg eggObject){
-        Chicken chicken = getOneChicken(chickenId);
-        if(chicken != null){
-            Optional <Egg> egg = Optional.of(eggRepository.findByChickenIdAndId(chickenId, eggId));
+           Optional <Chicken> chicken = Optional.of(chickenRepository.findByUserIdAndId(getCurrentLoggedInUser().getId(), chickenId));
+            if(chicken.isPresent()){
+            Optional <Egg> egg = Optional.of(eggRepository.findByChickenIdAndId(chicken.get().getId(), eggId));
             if(egg.isPresent()){
                 if(!egg.get().getColor().equals(eggObject.getColor())){
                     egg.get().setColor(eggObject.getColor());
@@ -160,9 +163,9 @@ public class ChickenService {
     }
     //DELETE AN EGG OF A SPECIFIC CHICKEN
     public Egg deleteEgg(Long chickenId, Long eggId){
-        Chicken chicken = getOneChicken(chickenId);
-        if(chicken != null){
-            Optional <Egg> egg = Optional.of(eggRepository.findByChickenIdAndId(chickenId,eggId));
+        Optional <Chicken> chicken = Optional.of(chickenRepository.findByUserIdAndId(getCurrentLoggedInUser().getId(), chickenId));
+        if(chicken.isPresent()){
+            Optional <Egg> egg = Optional.of(eggRepository.findByChickenIdAndId(chicken.get().getId(), eggId));
             if(egg.isPresent()){
                 eggRepository.delete(egg.get());
                 return egg.get();
@@ -175,33 +178,37 @@ public class ChickenService {
             throw new InformationNotFoundException("a chicken with id of "+ chickenId+ " does not exist in the database, unable to delete");
         }
     }
-
-    //GET ALL CHICKENS A USER LIKES! MANY TO MANY
-    public List<Chicken> getAllChickensAUserLikes(){
-        Optional <User> user = Optional.of(getCurrentLoggedInUser());
-        if(user.isPresent()){
-            return user.get().getChickenLikes();
-        }
-        else{
-            throw new InformationNotFoundException("No user exists with this id");
-        }
-    }
-
-    //GET ALL USERNAMES THAT LIKE A CHICKEN
-    public List<User> getAllUsersThatLikeAChicken(Long chickenId){
+//
+//    //GET ALL CHICKENS A USER LIKES! MANY TO MANY
+//    public List<Chicken> getAllUserLikedChickens(){
+//        if(getCurrentLoggedInUser().getChickenLikes().size() == 0){
+//            throw new RuntimeException();
+//        }
+//        else{
+//            return getCurrentLoggedInUser().getChickenLikes();
+//        }
+//
+//    }
+////
+//    //GET ALL USERNAMES THAT LIKE A CHICKEN
+    public Integer getChickenTotalLikes(Long chickenId){
         Chicken chicken = getOneChicken(chickenId);
+        System.out.println(chicken);
+        System.out.println(chicken.getLikes());
         if(chicken != null){
-            return chicken.getLikes();
+            return chicken.getLikes().size();
         }
         else{
             throw new InformationNotFoundException("no chicken with that id exists in database");
         }
     }
 
-    //USER LIKES A CHICKEN, ADDS THEIR USERNAME TO THE CHICKENS LIST OF PEOPLE THAT LIKE THEM
+//    //USER LIKES A CHICKEN, ADDS THEIR USERNAME TO THE CHICKENS LIST OF PEOPLE THAT LIKE THEM
     public void likeAChicken(Long chickenId){
         Chicken chicken = getOneChicken(chickenId);
-        chicken.getLikes().add(getCurrentLoggedInUser());
-        getCurrentLoggedInUser().getChickenLikes().add(chicken);
+        chicken.setLikes(getCurrentLoggedInUser());
+        getCurrentLoggedInUser().setChickenLikes(chicken);
+
+
     }
 }
