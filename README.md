@@ -48,11 +48,18 @@ Here are all of the routes created in my API along with their type of request an
 ***
 ### Unsolved Problems/Hurdles <a name="problems"></a>
 I had a very hard time getting my model relationships right. I had created a User and a Chicken entity, but was not saving the user_id on my Chicken entities. Once I installed Spring Security and needed to run my JPA queries with a userId, I was unable to successfully return anything because my Optional Chicken or Optional Egg was returning Null because the userId was null. That took me more time than I would like to admit to debug and solve. Once I was able to correctly link my tables, I was able to successfully query the database with a User id and an entity id.   
+
 I also wanted to try and create a Many-To-Many relationship and make URL endpoints to retrieve that relational data. While it was a noble attempt I do not think I was successful at linking those tables properly. 
 ***
-### Link To User Stories <a name="userstories"></a>
-link to user stories project kanban board!  
-Link to table of routes here???
+### User Stories <a name="userstories"></a>
+For every application there should be a user story! These are the user stories I created for my MVP application: 
+*   bullet one
+  * bullet two 
+  * bulltet three
+  * bullet four 
+  * bullet five 
+  * bullet six 
+
 ***
 ### Link To ERD Diagram <a name="erd"></a>
 ![crows feet diagram]("C:\Users\kelse\Desktop\crowsfeetERD.png")
