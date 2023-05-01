@@ -47,7 +47,8 @@ Here are all of the routes created in my API along with their type of request an
 
 ***
 ### Unsolved Problems/Hurdles <a name="problems"></a>
-definitely getting OneToOne and Many to Many relationships to link
+I had a very hard time getting my model relationships right. I had created a User and a Chicken entity, but was not saving the user_id on my Chicken entities. Once I installed Spring Security and needed to run my JPA queries with a userId, I was unable to successfully return anything because my Optional Chicken or Optional Egg was returning Null because the userId was null. That took me more time than I would like to admit to debug and solve. Once I was able to correctly link my tables, I was able to successfully query the database with a User id and an entity id.   
+I also wanted to try and create a Many-To-Many relationship and make URL endpoints to retrieve that relational data. While it was a noble attempt I do not think I was successful at linking those tables properly. 
 ***
 ### Link To User Stories <a name="userstories"></a>
 link to user stories project kanban board!  
