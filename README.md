@@ -1,5 +1,5 @@
 ## Chickstagram 
-a RESTful API application where people can register and share egg-cellent information about chickens. Application users can create/modify/and delete their chickens as well as like other users chickens. 
+a RESTful API application where people can register and share egg-cellent information about their chickens. Application users can create, modify, and delete their chickens entries as well as like other users chickens. 🐣🥚
 
 #### Table of Contents 
 1. [Tools/Technologies](#tools)
