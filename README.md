@@ -59,5 +59,10 @@ Link to table of routes here???
 ### Link to Planning Documentation <a name="planning"></a>
 You need excel sheet here! or link to other project kanban board???
 ***
-### Installation for any dependencies <a name="install"></a>
-spring io documentation! 
+### Installation for all Dependencies <a name="install"></a>
+[Spring Boot Starter](#https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter/3.0.6)  
+[Spring Boot Starter Test](#https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test/3.0.6)  
+[Spring Boot Starter Web](#https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web/3.0.5)  
+[PostGres Driver](#https://mvnrepository.com/artifact/org.postgresql/postgresql/42.6.0)  
+[Spring Boot Data Jpa](#https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa/3.0.6)  
+[Spring Security](#https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security)
