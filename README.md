@@ -1,1 +1,20 @@
-Chickstagram!
+## Chickstagram 
+a RESTful API application where people can register and share egg-cellent information about chickens. Application users can create/modify/and delete their chickens as well as like other users chickens. 
+
+#### Table of Contents 
+1. [Tools/Technologies](#tools)
+2. [My Approach](#summary)
+3. [Problems/Hurdles](#problems)
+4. [User Stories](#userstories)
+5. [ERD](#erd)
+6. [Planning](#planning)
+7. [Install and Get Started](#install)
+
+
+Tools/Technologies Used <a name="tools"></a>
+Brief Summary Of Approach <a name="summary"></a>
+Unsolved Problems/Hurdles <a name="problems"></a>
+Link To User Stories <a name="userstories"></a>
+Link To ERD Diagram <a name="erd"></a>
+Link to Planning Documentation <a name="planning"></a>
+Installation for any dependencies <a name="install"></a>
