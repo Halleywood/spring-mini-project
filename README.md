@@ -52,7 +52,7 @@ I had a very hard time getting my model relationships right. I had created a Use
 I also wanted to try and create a Many-To-Many relationship and make URL endpoints to retrieve that relational data. While it was a noble attempt I do not think I was successful at linking those tables properly. 
 ***
 ### 🐣 User Stories <a name="userstories"></a>
-For every application there should be a user story! These are the user stories I created for my MVP application: 
+   Every application should have a user story for every part of its functionality! Aside from the user stories to inspire the URLs and their functionality above, these were some User Stories that inspired my MVP application: 
 *   As an administrator, I can authorize what a user has access to by setting their authorizations when they log in. 
   * As an administrator, I can determine how long a User has access to specific URLs by setting the expiration time on their JWTs.  
   * As a user you can register for private access by providing a unique email address and receiving an encrypted password 
