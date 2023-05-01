@@ -13,16 +13,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/auth/users")
 public class UserController {
-
+    /**
+     * dependency injection, creates a userService instance for entire application, so controller can call service class!
+     */
     private UserService userService;
     @Autowired
     public void setUserService(UserService userService){this.userService = userService;}
 
+    /**
+     * takes request body with a unique email and password, sends to userService.
+     * @param userObject
+     * @return User
+     */
     @PostMapping(path="/register")
     public User registerAUser(@RequestBody User userObject){
         return userService.registerAUser(userObject);
     }
 
+    /**
+     * takes Login Request model passes it to service
+     * @param loginRequest
+     * @return ResponseEntity<User>
+     */
     @PostMapping(path="/login")
     public ResponseEntity<?> loginAsUser(@RequestBody LoginRequest loginRequest){
         return userService.loginUser(loginRequest);

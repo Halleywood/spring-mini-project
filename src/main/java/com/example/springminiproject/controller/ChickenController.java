@@ -21,12 +21,12 @@ public class ChickenController {
     }
 
     //-------------------------------------------------------------------------------CHICKEN CRUD OPERATIONS
-    /**
-     * returns ALL of the chickens in the database, regardless of who created them.
-     * @param no parameters
-     * @return List of Chicken objects.
-     */
-    //GET ALL CHICKENS
+
+     /**
+     *      * returns ALL of the chickens in the database, regardless of who created them.
+     *      * @param no parameters
+     *      * @return List of Chicken objects.
+     *      */
     @GetMapping(path="/chickens")
     public List<Chicken> getChickens(){
         return chickenService.getAllChickens();
@@ -144,7 +144,7 @@ public class ChickenController {
 //    //------------------------------------------------------------------------------------A USER CAN LIKE A CHICKEN?
 
     /**
-     * sends chickenId to service, finds that chicken object and adds user to its list of Users that "like it" 
+     * sends chickenId to service, finds that chicken object and adds user to its list of Users that "like it"
      * @param chickenId
      * @return a String letting user know they have liked that chicken
      */
