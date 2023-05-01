@@ -1,7 +1,7 @@
-## Chickstagram 
+# Chickstagram 🐔💞
 a RESTful API application where people can register and share egg-cellent information about their chickens. Application users can create, modify, and delete their chickens entries as well as like other users chickens. 🐣🥚
 
-#### Table of Contents 
+### Table of Contents 
 1. [Tools/Technologies](#tools)
 2. [My Approach](#summary)
 3. [Problems/Hurdles](#problems)
@@ -11,10 +11,15 @@ a RESTful API application where people can register and share egg-cellent inform
 7. [Install and Get Started](#install)
 
 
-Tools/Technologies Used <a name="tools"></a>
-Brief Summary Of Approach <a name="summary"></a>
-Unsolved Problems/Hurdles <a name="problems"></a>
-Link To User Stories <a name="userstories"></a>
-Link To ERD Diagram <a name="erd"></a>
-Link to Planning Documentation <a name="planning"></a>
-Installation for any dependencies <a name="install"></a>
+### Tools/Technologies Used <a name="tools"></a>
+    This application was built using Java Spring Boot
+    It connects to a Postgres database using JPA for data persistance
+    and retrieval. 
+    Spring Security was then installed to ensure data and user data 
+    was authenticated and authorized. 
+### Brief Summary Of Approach <a name="summary"></a>
+### Unsolved Problems/Hurdles <a name="problems"></a>
+### Link To User Stories <a name="userstories"></a>
+### Link To ERD Diagram <a name="erd"></a>
+### Link to Planning Documentation <a name="planning"></a>
+### Installation for any dependencies <a name="install"></a>
