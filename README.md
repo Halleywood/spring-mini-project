@@ -12,12 +12,13 @@ a RESTful API application where people can register and share egg-cellent inform
 
 
 ### Tools/Technologies Used <a name="tools"></a>
-    This application was built using Java Spring Boot
-    It connects to a Postgres database using JPA for data persistance
-    and retrieval. 
-    Spring Security was then installed to ensure data and user data 
+* Java Spring Boot and Java Spring Framework
+* Postgres database
+* JPA (Java Persistence API) for object-relational mapping and data persistence
+* Spring Security was then installed to ensure data and user data 
     was authenticated and authorized. 
 ### Brief Summary Of Approach <a name="summary"></a>
+* 
 ### Unsolved Problems/Hurdles <a name="problems"></a>
 ### Link To User Stories <a name="userstories"></a>
 ### Link To ERD Diagram <a name="erd"></a>
