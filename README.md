@@ -53,12 +53,11 @@ I also wanted to try and create a Many-To-Many relationship and make URL endpoin
 ***
 ### 🐣 User Stories <a name="userstories"></a>
 For every application there should be a user story! These are the user stories I created for my MVP application: 
-*   bullet one
-  * bullet two 
-  * bulltet three
-  * bullet four 
-  * bullet five 
-  * bullet six 
+*   As an administrator, I can authorize what a user has access to by setting their authorizations when they log in. 
+  * As an administrator, I can determine how long a User has access to specific URLs by setting the expiration time on their JWTs.  
+  * As a user you can register for private access by providing a unique email address and receiving an encrypted password 
+  * As a user I can create a chicken type and only they have authorization to edit and delete that specific entry.  
+  * As a user, I can keep a list of all chickens that I like regardless of if I created it.
 
 ***
 ### 🥚 Link To ERD Diagram <a name="erd"></a>
