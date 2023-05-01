@@ -23,9 +23,10 @@ For this project I took a very linear approach. It was easier for my to use a Gi
 
 The premise was to create the models, map the models to eachother and use those relationships to write database queries. I used the ModelViewController design principle to separate the logic needed to take a user request from the database and the corresponding response. There is a Controller class that handles all of the routes, that talks to a Service class that handles all of the business logic. The Service class talks to the model repository which retrieves the information from databse using JPA. So the data is protected by many layers.  
 
-Here is a link to my project board/to-do list. As you can see it is very long but very specific and detail oriented. 
+Here is a link to my project planning. As you can see it is very long but very specific and detail oriented.   
+[Project Board/ To-Do List](#https://github.com/users/Halleywood/projects/9)
 
-
+Here are all of the routes created in my API along with their type of request and functionality. 
 
 | Request Type | URL                                    | Functionality                                                                  |
 |--------------|----------------------------------------|--------------------------------------------------------------------------------|
@@ -53,7 +54,7 @@ link to user stories project kanban board!
 Link to table of routes here???
 ***
 ### Link To ERD Diagram <a name="erd"></a>
-here I need to put picture of ERD and discuss relationships 
+![crows feet diagram](#"C:\Users\kelse\Desktop\crowsfeetERD.png")
 ***
 ### Link to Planning Documentation <a name="planning"></a>
 You need excel sheet here! or link to other project kanban board???
